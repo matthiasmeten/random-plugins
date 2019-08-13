@@ -6,10 +6,11 @@
 
 // Replace this with how often you want the doors to close (in seconds)
 // 300.0 would close it every 5 minutes.
-// Set to 0.3 and set RAVE to 1 if you're a sick motherfu- I mean 404UNF.
-#define MY_TIME 300.0
+// Set RAVE to 1 and sm_doorcloser_time to 0.2 if you're a sick motherfu- I mean 404UNF.
 #define RAVE 0
 
+Handle doortimer = null;
+ConVar g_hCloseTimer = null;
 int g_iDoorIndexes[1024];
 // Who the hell would have more than 1024 doors in a map?
 // Don't tell me you're gonna create a map now with more than that and set SECONDS to 0.5...
@@ -23,14 +24,25 @@ public Plugin myinfo =
 	name = "Periodical Door Closer",
 	author = "Meten",
 	description = "Real fake doors! Order now! (I had to make this joke)",
-	version = "1.0",
+	version = "1.1",
 	url = "https://github.com/matthiasmeten/random-plugins"
 }
 
 public void OnPluginStart()
 {
-    CreateTimer(MY_TIME, CloseDoors, _, TIMER_REPEAT);
+    g_hCloseTimer = CreateConVar("sm_doorcloser_time", "300.0", "How often to close all doors in the map", _, true, 0.1, true, 3600.0);
+    doortimer = CreateTimer(g_hCloseTimer.FloatValue, CloseDoors, _, TIMER_REPEAT);
+    g_hCloseTimer.AddChangeHook(OnConVarChanged);
     FindDoorsInMap();
+}
+
+public void OnConVarChanged(ConVar convar, const char[] oldValue, const char[] newValue)
+{
+    if (convar == g_hCloseTimer)
+    {
+        KillTimer(doortimer, false);
+        CreateTimer(StringToFloat(newValue), CloseDoors, _, TIMER_REPEAT); 
+    }
 }
 
 void FindDoorsInMap()
