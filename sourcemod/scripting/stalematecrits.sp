@@ -6,7 +6,7 @@
 
 public Plugin myinfo = 
 {
-	name = "[TF2] Crits on stalemate",
+	name = "[TF2] Crits on stalemate for all",
 	author = "Meten",
 	description = "Enables crits for all and takes away the stunned cond during a round stalemate.",
 	version = "0.1",
