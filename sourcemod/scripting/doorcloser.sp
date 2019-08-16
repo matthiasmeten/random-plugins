@@ -21,11 +21,11 @@ int g_iDoorsInMap;
 
 public Plugin myinfo = 
 {
-	name = "Periodical Door Closer",
-	author = "Meten",
-	description = "Real fake doors! Order now! (I had to make this joke)",
-	version = "1.1",
-	url = "https://github.com/matthiasmeten/random-plugins"
+    name = "Periodical Door Closer",
+    author = "Meten",
+    description = "Real fake doors! Order now! (I had to make this joke)",
+    version = "1.1",
+    url = "https://github.com/matthiasmeten/random-plugins"
 }
 
 public void OnPluginStart()
@@ -65,7 +65,7 @@ void FindDoorsInMap()
 
 public Action CloseDoors(Handle timer)
 {
-	for(int i = 0; i < g_iDoorsInMap; i++)
+    for(int i = 0; i < g_iDoorsInMap; i++)
     {
         if (g_iDoorIndexes[i] == 0)
         {
