@@ -1,4 +1,4 @@
-# Ignore base Sourcemod files
+# Ignore some Sourcemod files
 # Small plugins don't require includes. If they will, I'll update this.
 *.inc
 *.exe

@@ -1,0 +1,3 @@
+# Sourcemod gitattributes
+*      diff crlf
+*.smx  binary
