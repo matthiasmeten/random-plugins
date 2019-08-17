@@ -4,8 +4,6 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-// Replace this with how often you want the doors to close (in seconds)
-// 300.0 would close it every 5 minutes.
 // Set RAVE to 1 and sm_doorcloser_time to 0.2 if you're a sick motherfu- I mean 404UNF.
 #define RAVE 0
 
