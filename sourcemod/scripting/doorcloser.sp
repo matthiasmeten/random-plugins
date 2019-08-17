@@ -34,6 +34,22 @@ public void OnPluginStart()
     FindDoorsInMap();
 }
 
+void FindDoorsInMap()
+{
+    int latestdoor = -1;
+    for(g_iDoorsInMap = 0; g_iDoorsInMap < 1024; g_iDoorsInMap++)
+    {
+        latestdoor = FindEntityByClassname(latestdoor, "prop_door_rotating");
+        if (latestdoor == -1)
+        {
+            break;
+        } else
+        {
+            g_iDoorIndexes[g_iDoorsInMap] = latestdoor;
+        }
+    }
+}
+
 public void OnConVarChanged(ConVar convar, const char[] oldValue, const char[] newValue)
 {
     if (convar == g_hCloseTimer)
@@ -41,24 +57,6 @@ public void OnConVarChanged(ConVar convar, const char[] oldValue, const char[] n
         KillTimer(g_hDoorTimer, false);
         CreateTimer(StringToFloat(newValue), CloseDoors, _, TIMER_REPEAT); 
     }
-}
-
-void FindDoorsInMap()
-{
-    int latestdoor = -1;
-    do // I know this can be done in a for loop, but this is more convenient for now.
-    {
-        latestdoor = FindEntityByClassname(latestdoor, "prop_door_rotating");
-        if (latestdoor == -1)
-        {
-            break;
-        }
-        else
-        {
-            g_iDoorIndexes[g_iDoorsInMap] = latestdoor;
-            g_iDoorsInMap++;
-        }
-    } while(true);
 }
 
 public Action CloseDoors(Handle timer)
