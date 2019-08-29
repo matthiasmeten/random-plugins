@@ -10,8 +10,7 @@
 
 Handle g_hDoorTimer = null;
 ConVar g_hCloseTimer = null;
-int g_iDoorIndexes[1024]; // Who the hell would have more than 1024 doors in a map?
-                          // Don't tell me you're gonna create a map now with more than that and set SECONDS to 0.5...
+int g_iDoorIndexes[1024];
 int g_iDoorsInMap;
 #if RAVE == 1
     bool g_bClosed = true;
