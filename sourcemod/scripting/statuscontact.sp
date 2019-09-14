@@ -26,11 +26,15 @@ public void OnConfigsExecuted()
     g_cvContact = FindConVar("sv_contact");
     g_cvRegMsg = FindConVar("sv_registration_message");
     char buffer[256];
+    char output[256];
     g_cvContact.GetString(buffer, 256);
-    g_cvRegMsg.SetString(buffer, true, false);
+    Format(buffer, 256, "No account specified)\n%s", output);
+    g_cvRegMsg.SetString(output, true, false);
 }
 
 public void ContactChanged(ConVar convar, const char[] oldValue, const char[] newValue)
 {
+    char output[256];
+    Format(output, 256, "No account specified)\n%s", newValue);
     g_cvRegMsg.SetString(newValue, true, false);
 }
