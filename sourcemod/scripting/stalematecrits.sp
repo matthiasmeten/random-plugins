@@ -52,6 +52,6 @@ public void OnTFRoundWin(Event event, const char[] name, bool dontBroadcast)
 
 public void OnTFRoundStart(Event event, const char[] name, bool dontBroadcast)
 {
-    // Prevents a bizzare glitch from occuring when a team wins normally and fixes no announcer voice.
+    // Prevents a TF2 bug from occuring.
     GameRules_SetProp("m_iRoundState", RoundState_Preround);
 }
