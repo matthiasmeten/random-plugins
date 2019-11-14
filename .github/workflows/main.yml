@@ -23,8 +23,12 @@ jobs:
         mv addons/ addons2/
         tar -xvzf sourcemod.tar.gz
         mv addons/sourcemod/scripting/include .
+        mv addons/sourcemod/scripting/compile.sh .
+        mv addons/sourcemod/scripting/spcomp .
         rm -r addons/sourcemod/scripting/*
         mv include/ addons/sourcemod/scripting/
+        mv spcomp addons/sourcemod/scripting/
+        mv compile.sh addons/sourcemod/scripting/
         mv addons2/sourcemod/scripting/* addons/sourcemod/scripting/
     - name: Compile plugins
       working-directory: addons/sourcemod/scripting
@@ -32,7 +36,7 @@ jobs:
         ./compile.sh
     - name: Prepare artifacts
       run: |
-        echo ::set-env name=PLUGIN_VERSION::sm.${{ matrix.SM_VERSION }}-$(git rev-list --count HEAD)-$(git describe --always --long --dirty)
+        echo ::set-env name=PLUGIN_VERSION::sm.${{ matrix.SM_VERSION }}-$(git rev-list --count HEAD)
         mv addons/ oldaddons/
         mkdir -p addons/sourcemod/{scripting,plugins}
         mv oldaddons/sourcemod/scripting/*.sp addons/sourcemod/scripting/
