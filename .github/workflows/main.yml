@@ -23,7 +23,9 @@ jobs:
         mv addons/ addons2/
         tar -xvzf sourcemod.tar.gz
         cd addons/sourcemod/scripting/
-        rm -- -r !(include)
+        mv include ../
+        rm -r *
+        mv ../include .
         mv addons2/sourcemod/plugins/scripting/* addons/sourcemod/plugins/scripting
     - name: Compile plugins
       working-directory: addons/sourcemod/scripting
