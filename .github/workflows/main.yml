@@ -26,7 +26,7 @@ jobs:
         mv include ../
         rm -r *
         mv ../include .
-        mv addons2/sourcemod/plugins/scripting/* addons/sourcemod/plugins/scripting
+        mv addons2/sourcemod/scripting/* addons/sourcemod/scripting/
     - name: Compile plugins
       working-directory: addons/sourcemod/scripting
       run: |
