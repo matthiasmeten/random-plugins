@@ -40,7 +40,7 @@ jobs:
         mv addons/ oldaddons/
         mkdir -p addons/sourcemod/{scripting,plugins}
         mv oldaddons/sourcemod/scripting/*.sp addons/sourcemod/scripting/
-        mv oldaddons/sourcemod/scripting/*.smx addons/sourcemod/plugins/
+        mv oldaddons/sourcemod/scripting/compiled/*.smx addons/sourcemod/plugins/
     - name: Upload artifacts
       uses: actions/upload-artifact@master
       with:
