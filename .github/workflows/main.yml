@@ -22,10 +22,9 @@ jobs:
         curl "https://sm.alliedmods.net/smdrop/${{ matrix.SM_VERSION }}/$(curl https://sm.alliedmods.net/smdrop/${{ matrix.SM_VERSION }}/sourcemod-latest-linux)" -o sourcemod.tar.gz
         mv addons/ addons2/
         tar -xvzf sourcemod.tar.gz
-        cd addons/sourcemod/scripting/
-        mv include ../
-        rm -r *
-        mv ../include .
+        mv addons/sourcemod/scripting/include .
+        rm -r addons/sourcemod/scripting/*
+        mv include/ addons/sourcemod/scripting/
         mv addons2/sourcemod/scripting/* addons/sourcemod/scripting/
     - name: Compile plugins
       working-directory: addons/sourcemod/scripting
