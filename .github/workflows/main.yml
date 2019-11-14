@@ -1,0 +1,43 @@
+name: SM Build
+
+on:
+  push:
+    branches: 
+      - master
+  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        sm_version: ["1.9", "1.10"]
+
+    steps:
+    - uses: actions/checkout@master
+      #with:
+      #  fetch-depth: 1
+    - name: Download & prepare the latest Sourcemod for ${{ matrix.SM_VERSION }}
+      run: |
+        curl "https://sm.alliedmods.net/smdrop/${{ matrix.SM_VERSION }}/$(curl https://sm.alliedmods.net/smdrop/${{ matrix.SM_VERSION }}/sourcemod-latest-linux)" -o sourcemod.tar.gz
+        mv addons/ addons2/
+        tar -xvzf sourcemod.tar.gz
+        cd addons/sourcemod/scripting/
+        rm -- -r !(include)
+        mv addons2/sourcemod/plugins/scripting/* addons/sourcemod/plugins/scripting
+    - name: Compile plugins
+      working-directory: addons/sourcemod/scripting
+      run: |
+        ./compile.sh
+    - name: Prepare artifacts
+      run: |
+        echo ::set-env name=PLUGIN_VERSION::sm.${{ matrix.SM_VERSION }}-$(git rev-list --count HEAD)-$(git describe --always --long --dirty)
+        mv addons/ oldaddons/
+        mkdir -p addons/sourcemod/{scripting,plugins}
+        mv oldaddons/sourcemod/scripting/*.sp addons/sourcemod/scripting/
+        mv oldaddons/sourcemod/scripting/*.smx addons/sourcemod/plugins/
+    - name: Upload artifacts
+      uses: actions/upload-artifact@master
+      with:
+        name: random-plugins-${{ env.PLUGIN_VERSION }}
+        path: ./addons
